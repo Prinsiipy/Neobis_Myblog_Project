@@ -21,8 +21,9 @@
 3. Перейдите в папку проекта **`cd todoapp`**
 4. Установите зависимости из файла requirements.txt **`pip install -r requirements.txt`**
 5. Запустите миграции командой **`python manage.py migrate`**
-6. Запустите приложение командой **`python manage.py runserver`**
-7. Откройте браузер и перейдите по адресу **`http://localhost:8000`**
+6. Создайте суперпользователя для доступа к админке: **`python manage.py createsuperuser`**
+7. Запустите приложение командой **`python manage.py runserver`**
+8. Откройте браузер и перейдите по адресу **`http://localhost:8000`**
 
 ## **Использование приложения:**
 
