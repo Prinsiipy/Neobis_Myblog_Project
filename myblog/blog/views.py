@@ -1,24 +1,26 @@
+from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
+from .forms import PostForm
 from .models import Post
-
-from .forms import Post
+from . import models, forms
 
 
 def post_list(request):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+    posts = models.Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+
     return render(request, 'blog/post_list.html', {'posts': posts})
 
 
 def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+    post = get_object_or_404(PostForm, pk=pk)
     return render(request, 'blog/post_detail.html', {'post': post})
 
 
 def post_new(request):
     if request.method == "POST":
-        form = Post(request.POST)
+        form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -26,14 +28,14 @@ def post_new(request):
             post.save()
             return redirect('post_detail', pk=post.pk)
     else:
-        form = Post()
+        form = PostForm()
     return render(request, 'blog/post_edit.html', {'form': form})
 
 
 def post_edit(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+    post = get_object_or_404(PostForm, pk=pk)
     if request.method == "POST":
-        form = Post(request.POST, instance=post)
+        form = PostForm(request.POST, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -41,5 +43,5 @@ def post_edit(request, pk):
             post.save()
             return redirect('post_detail', pk=post.pk)
     else:
-        form = Post(instance=post)
+        form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
