@@ -3,7 +3,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
 from .forms import PostForm
-from .models import Post
 from . import models, forms
 
 
@@ -15,6 +14,7 @@ def post_list(request):
 
 def post_detail(request, pk):
     post = get_object_or_404(PostForm, pk=pk)
+
     return render(request, 'blog/post_detail.html', {'post': post})
 
 
