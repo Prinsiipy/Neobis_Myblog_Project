@@ -10,8 +10,6 @@
 - Python 3.6+
 - Django Framework 3.2+
 - HTML
-- Django forms
-- Django template
 - CRUD requests
 
 ## **Установка и запуск приложения:**
